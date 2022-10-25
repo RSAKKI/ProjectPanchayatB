@@ -96,6 +96,7 @@ app.post("/n",async (req,res)=>{
 
 app.post("/sq",async (req,res)=>{
     const data1=req.body
+    data1.status="null"
     const ob=new requestModel(data1)
     ob.save((error,data1)=>{
       if(error)
@@ -108,6 +109,54 @@ app.post("/sq",async (req,res)=>{
       }
     })
 })
+
+app.put("/approveview/:id",async(req,res)=>{
+  console.log(req.params.id)
+  const id = req.params.id,
+  status="Approved"
+  requestModel.findByIdAndUpdate({"_id":id},
+  {$set:{"status":status
+}}).then(function(){
+  requestModel.find(
+      (error,data)=>{
+          if(error){
+              res.send(error)
+              
+          }
+          else{
+              res.status(200).json({
+                  msg:data
+                 
+              })
+              console.log(data)
+          }
+      }
+  )})
+    })
+
+    app.delete('/deleteview/:id',function(req,res){
+      const id = req.params.id;
+      requestModel.findByIdAndDelete(id,(error,data)=>{
+         if(error){
+          res.send(error)
+         }else{
+          res.status(200).json({
+              msg:data
+          })
+         }
+      })
+  })    
+
+app.get("/requestview",async(req,res)=>{
+  requestModel.find((error,data)=>{
+          if(error){
+              res.send(error)
+          }
+          else{
+              res.send(data)
+            }
+      })
+    })
 
 app.get("/userview",async(req,res)=>{
   userModel.find((error,data)=>{

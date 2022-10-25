@@ -4,7 +4,8 @@ const requestModel=Mongoose.model("newrequests",Mongoose.Schema({
    requestname:String,
    vid:String,
    facilitytype:String,
-   userequest:String
+   userequest:String,
+   status:String
 
 
 }))
