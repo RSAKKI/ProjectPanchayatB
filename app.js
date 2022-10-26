@@ -109,6 +109,23 @@ app.post("/sq",async (req,res)=>{
       }
     })
 })
+app.post("/viewvid",async (req,res)=>{
+
+  console.log(req.body.data.voterid)
+  requestModel.find({vid:req.body.data.voterid},
+     (error,data1)=>{
+      if(error)
+      {
+        res.send("error occured")
+      }
+      else
+      {
+        console.log(data1)
+        res.send(data1)
+      }
+    }) 
+  
+})
 
 app.put("/approveview/:id",async(req,res)=>{
   console.log(req.params.id)
@@ -146,6 +163,19 @@ app.put("/approveview/:id",async(req,res)=>{
          }
       })
   })    
+
+  app.delete('/deluser/:id',function(req,res){
+    const id = req.params.id;
+    userModel.findByIdAndDelete(id,(error,data)=>{
+       if(error){
+        res.send(error)
+       }else{
+        res.status(200).json({
+            msg:data
+        })
+       }
+    })
+})    
 
 app.get("/requestview",async(req,res)=>{
   requestModel.find((error,data)=>{
