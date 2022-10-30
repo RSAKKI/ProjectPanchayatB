@@ -33,6 +33,7 @@ app.post("/us",async (req,res)=>{
 })
 
 app.post("/as",async (req,res)=>{
+  console.log(req.body)
     const data1=req.body
     const ob=new adminmodel(data1)
     ob.save((error,data1)=>{
@@ -49,6 +50,7 @@ app.post("/as",async (req,res)=>{
 })
 
 app.post("/alogin", async(req, res) => {
+  console.log(req.body)
   const request = req.body
   adminmodel.findOne({adminname: request.adminname}, (err,data1) => {
     if(data1){
